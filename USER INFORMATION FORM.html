@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> CRED EXAMPLE</title>
+<style>
+form {
+
+</style>
+<script>
+const userForm = document.getElementById('userForm');
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const userTableBody = document.getElementById('#userTabletbody');
+let users = [];
+let editIndex=null;
+
+userForm.addEventListener('submit',function(e)
+{
+e.preventDefault(); 
+ 
+const name = nameInput.value.trim();
+const email = emailInput.value.trim();
+
+if(editIndex === null) {
+users.push({name,email});
+}
+else{
+users[editIndex] = {name,email};
+editIndex = null;
+}
+
+userForm.reset();
+  renderTable();
+});
+
+function renderTable() {
+    userTableBody.innerHTML ='';
+    users.ForEach((user,index) => {
+     const row = document.createElement('tr');
+     
+      row.innerHTML=
+       ` <td>${user.name}</td>
+        <td>${user.email}</td>
+        <td> 
+           <button onclick="editUser(${index})">Edit<button>
+              <button onclick="deleteUser(${index})">Delete<button>
+                  </td>
+                 `;
+
+                  userTableBody.appendChild(row);
+                });
+              }
+
+      window.edituser = function(index) {
+        const user = users[index];
+        nameInput.value = user.name;
+        emailInput.value = user.email;
+        editIndex = value;
+     }
+
+</script>
+</head>
+<body>
+<h2>USER INFORMATION</h2>
+<form id="userForm">
+<input type="text" id="name" placeholder="Enter the name" required><br>
+<input type="text" id="email" placeholder="Enter the email" required><br>
+<button type="submit"> ADD USER </button>
+</form>
+<table border="1" id="userTable">
+<thead>
+<tr>
+<th>username</th>
+<th>email</th>
+<th>actions</th>
+</tr>
+</thead>
+<tbody></body>
+</table>
+</body>
+</html>
